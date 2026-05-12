@@ -11,3 +11,14 @@ Route::get('/about', function () {
     ];
     return view('about', compact('name', 'departments'));
 });
+use Illuminate\Http\Request;
+
+Route::post('/about', function (Request $request) {
+    $name = $request->input('user_name'); 
+    $departments = [
+        '1' => 'Technical',
+        '2' => 'Financial',
+        '3' => 'Sales'
+    ];
+    return view('about', compact('name', 'departments'));
+});

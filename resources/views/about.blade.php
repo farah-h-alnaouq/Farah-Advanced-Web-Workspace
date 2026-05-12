@@ -7,3 +7,9 @@
         <option value="{{ $key }}">{{ $value }}</option>
     @endforeach
 </select>
+<hr>
+<form action="/about" method="POST">
+    @csrf
+    <input type="text" name="user_name" placeholder="  هاني ">
+    <button type="submit">إرسال</button>
+</form>
