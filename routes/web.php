@@ -1,24 +1,23 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
-Route::get('/about', function () {
-    $name = "Farah";
-    $departments = [
-        '1' => 'Technical',
-        '2' => 'Financial',
-        '3' => 'Sales'
-    ];
-    return view('about', compact('name', 'departments'));
-});
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+// 1. مسار عرض صفحة المهام
+Route::get('/tasks', function () {
+    return view('tasks');
+});
 
-Route::post('/about', function (Request $request) {
-    $name = $request->input('user_name'); 
-    $departments = [
-        '1' => 'Technical',
-        '2' => 'Financial',
-        '3' => 'Sales'
-    ];
-    return view('about', compact('name', 'departments'));
+// 2. مسار استقبال البيانات وإدخالها في قاعدة البيانات
+Route::post('/create', function (Request $request) {
+    // استقبال الاسم من الفورم باستخدام الميثود المعتمدة في لارفيل
+    $taskName = $request->input('name');
+
+    // إدخال البيانات في جدول tasks باستخدام الكلاس DB
+    DB::table('tasks')->insert([
+        'name' => $taskName
+    ]);
+
+    // بعد الإدخال، يعود المستخدم إلى صفحة المهام
+    return view('tasks');
 });
